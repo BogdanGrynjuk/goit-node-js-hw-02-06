@@ -11,7 +11,7 @@ const {
 const getAll = async (req, res, next) => {
   const contacts = await listContacts();
   res.json({
-    status: "success",
+    status: "Success",
     code: res.statusCode,
     data: {
       contacts,
@@ -28,7 +28,7 @@ const getById = async (req, res, next) => {
   }
 
   res.json({
-    status: "success",
+    status: "Success",
     code: res.statusCode,
     data: {
       contact,
@@ -40,7 +40,7 @@ const add = async (req, res, next) => {
   const contact = await addContact(req.body);
 
   res.status(201).json({
-    status: "success",
+    status: "Success",
     code: res.statusCode,
     data: {
       contact,
@@ -58,7 +58,7 @@ const updateById = async (req, res, next) => {
   }
 
   res.json({
-    status: "success",
+    status: "Success",
     code: res.statusCode,
     data: {
       contact: updatedContact,
@@ -76,7 +76,7 @@ const deleteById = async (req, res, next) => {
   }
 
   res.json({
-    status: "success",
+    status: "Success",
     code: res.statusCode,
     data: {
       message: "Contact deleted",
