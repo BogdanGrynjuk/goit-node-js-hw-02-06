@@ -1,7 +1,7 @@
 const { Schema, model } = require("mongoose");
 const Joi = require("joi");
 
-const { handleMongooseError } = require("../helpers");
+const { handleMongooseError } = require("../../helpers");
 const phoneRegexp = /^\([0-9]{3}\)\s{1}[0-9]{3}-[0-9]{4}$/;
 
 const contactSchema = new Schema(
@@ -21,7 +21,7 @@ const contactSchema = new Schema(
         message: (props) =>
           `${props.value} is not a valid phone number! Phone number must be next format (123) 111-1111`,
       },
-      required: [true, "User phone number required"],
+      required: [true, "The user's phone number is required"],
     },
     favorite: {
       type: Boolean,
@@ -60,6 +60,12 @@ const joiUpdateFavoriteSchema = Joi.object({
   }),
 });
 
-const joiSchemas = { joiAddContactSchema, joiUpdateFavoriteSchema };
+const joiSchemasForContacts = {
+  joiAddContactSchema,
+  joiUpdateFavoriteSchema,
+};
 
-module.exports = { Contact, joiSchemas };
+module.exports = {
+  Contact,
+  joiSchemasForContacts,
+};
