@@ -3,6 +3,7 @@ const Joi = require("joi");
 
 const { handleMongooseError } = require("../../helpers");
 const phoneRegexp = /^\([0-9]{3}\)\s{1}[0-9]{3}-[0-9]{4}$/;
+const emailRegexp = /^[A-Z0-9._%+-]+@[A-Z0-9-]+.+.[A-Z]{2,4}$/i;
 
 const contactSchema = new Schema(
   {
@@ -12,6 +13,7 @@ const contactSchema = new Schema(
     },
     email: {
       type: String,
+      match: emailRegexp,
       required: [true, "Set email for contact"],
     },
     phone: {
@@ -27,6 +29,10 @@ const contactSchema = new Schema(
       type: Boolean,
       default: false,
     },
+    owner: {
+      type: Schema.Types.ObjectId,
+      ref: "user",
+    },
   },
   { versionKey: false, timestamps: true }
 );
@@ -40,9 +46,9 @@ const joiAddContactSchema = Joi.object({
     "string.base": "'name' must be a string",
     "any.required": "Missing required 'name' field",
   }),
-  email: Joi.string().email().required().messages({
+  email: Joi.string().pattern(emailRegexp).required().messages({
     "string.base": "'email' must be a string",
-    "string.email": "'email' must be a valid email",
+    "string.pattern.base": "'email' must be a valid email",
     "any.required": "Missing required 'email' field",
   }),
   phone: Joi.string().pattern(phoneRegexp).required().messages({
@@ -60,12 +66,12 @@ const joiUpdateFavoriteSchema = Joi.object({
   }),
 });
 
-const joiSchemasForContacts = {
+const joiSchemasForContact = {
   joiAddContactSchema,
   joiUpdateFavoriteSchema,
 };
 
 module.exports = {
   Contact,
-  joiSchemasForContacts,
+  joiSchemasForContact,
 };

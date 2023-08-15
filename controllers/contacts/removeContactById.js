@@ -1,4 +1,4 @@
-const { Contact } = require("../../models/contacts/contact");
+const { Contact } = require("../../models/contact/contact");
 const { HttpError, ctrlWrapper } = require("../../helpers");
 
 const removeContactById = async (req, res, next) => {

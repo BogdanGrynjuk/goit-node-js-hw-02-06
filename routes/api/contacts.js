@@ -1,7 +1,7 @@
 const express = require("express");
 
 const ctrl = require("../../controllers/contacts");
-const { joiSchemasForContacts } = require("../../models/contacts");
+const { joiSchemasForContact } = require("../../models/contact");
 const { validateBody, isValidId } = require("../../middlewapres");
 
 const router = express.Router();
@@ -12,21 +12,21 @@ router.get("/:contactId", isValidId, ctrl.getContactById);
 
 router.post(
   "/",
-  validateBody(joiSchemasForContacts.joiAddContactSchema),
+  validateBody(joiSchemasForContact.joiAddContactSchema),
   ctrl.addContact
 );
 
 router.put(
   "/:contactId",
   isValidId,
-  validateBody(joiSchemasForContacts.joiAddContactSchema),
+  validateBody(joiSchemasForContact.joiAddContactSchema),
   ctrl.updateContactById
 );
 
 router.patch(
   "/:contactId/favorite",
   isValidId,
-  validateBody(joiSchemasForContacts.joiUpdateFavoriteSchema),
+  validateBody(joiSchemasForContact.joiUpdateFavoriteSchema),
   ctrl.updateStatusContact
 );
 
