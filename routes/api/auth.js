@@ -2,7 +2,7 @@ const express = require("express");
 
 const ctrl = require("../../controllers/auth");
 const { joiShemasForUser } = require("../../models/user");
-const { validateBody } = require("../../middlewapres");
+const { validateBody, authenticate } = require("../../middlewapres");
 
 const router = express.Router();
 
@@ -17,5 +17,7 @@ router.post(
   validateBody(joiShemasForUser.joiLoginSchema),
   ctrl.login
 );
+
+router.post("/logout", authenticate, ctrl.logout);
 
 module.exports = router;
