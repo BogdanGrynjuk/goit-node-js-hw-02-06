@@ -22,4 +22,11 @@ router.post("/logout", authenticate, ctrl.logout);
 
 router.get("/current", authenticate, ctrl.getCurrentUserInfo);
 
+router.patch(
+  "/subscription",
+  authenticate,
+  validateBody(joiShemasForUser.joiUpdateSubscripionSchema),
+  ctrl.updateUserSubscription
+);
+
 module.exports = router;

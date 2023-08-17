@@ -29,7 +29,6 @@ const userSchema = new Schema(
     },
     token: {
       type: String,
-      default: "",
     },
   },
   { versionKey: false, timestamps: true }
@@ -69,9 +68,13 @@ const joiLoginSchema = Joi.object({
   }),
 });
 
+const joiUpdateSubscripionSchema = Joi.object({
+  subscription: Joi.string().valid("starter", "pro", "business"),
+});
 const joiShemasForUser = {
   joiRegisterSchema,
   joiLoginSchema,
+  joiUpdateSubscripionSchema,
 };
 
 module.exports = {
