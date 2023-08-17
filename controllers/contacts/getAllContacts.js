@@ -2,7 +2,8 @@ const { Contact } = require("../../models/contact/contact");
 const { ctrlWrapper } = require("../../helpers");
 
 const getAllContacts = async (req, res, next) => {
-  const contacts = await Contact.find().exec();
+  const { _id: owner } = req.user;
+  const contacts = await Contact.find({ owner }).exec();
   res.json({
     status: "Success",
     code: res.statusCode,
