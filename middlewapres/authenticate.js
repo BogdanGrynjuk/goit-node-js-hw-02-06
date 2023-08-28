@@ -6,8 +6,13 @@ const { User } = require("../models/user");
 const SECRET_KEY = process.env.SECRET_KEY;
 
 const authenticate = async (req, res, next) => {
-  const { authorization = "" } = req.headers;
-  const [bearer, token] = authorization.split(" ");
+  const { authorization } = req.headers;
+
+  if (typeof authorization !== "string") {
+    next(HttpError(401, "Not authorized"));
+  }
+
+  const [bearer, token] = authorization.split(" ", 2);
 
   if (bearer !== "Bearer") {
     next(HttpError(401, "Not authorized"));
